@@ -1,0 +1,207 @@
+﻿@model List<CiviAIReview.Models.UserViewModel>
+@* @{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ *@
+
+<div class="container mt-4">
+    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group me-2" role="group" aria-label="Main actions">
+            <button class="btn btn-primary ms-2 fw-semibold" id="btnNew">New</button>
+            <button class="btn btn-primary ms-2 fw-semibold" id="btnEdit">Edit</button>
+            <button class="btn btn-primary ms-2 fw-semibold" id="btnCancel">Cancel</button>
+            <button class="btn btn-primary ms-2 fw-semibold" id="btnAccessRights">Access Rights</button>
+        </div>
+    </div>
+    <hr class="ButtonLine" id="ButtonLine" />
+
+    <div class="container bg-main form-container fs-7" id="userForm">
+        <form>
+            <div class="row g-3">
+                <!-- Right Column: User Info Form -->
+                <div class="col-md-9 fs-7 fw-semibold">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="UserId" class="form-label me-2" style="width: 100px;">User ID</label>
+                                <input id="userId" class="form-control" />
+                            </div>
+
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="MemberType" class="form-label me-2" style="width: 100px;">Member Type</label>
+                                <select id="memberType" class="form-select">
+                                    <option value=""></option>
+                                    <option value="Student">Student</option>
+                                    <option value="Teacher">Teacher</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="FirstName" class="form-label me-2" style="width: 100px;">First Name</label>
+                                <input  id="firstName" class="form-control" />
+                            </div>
+
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="MiddleName" class="form-label me-2" style="width: 100px;">Middle Name</label>
+                                <input id="middleName" class="form-control" />
+                            </div>
+
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="LastName" class="form-label me-2" style="width: 100px;">Last Name</label>
+                                <input id="lastName" class="form-control" />
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="Suffix" class="form-label me-2" style="width: 100px;">Suffix</label>
+                                <select id="suffix" class="form-select">
+                                    <option value=""></option>
+                                    <option value="Jr">Jr</option>
+                                    <option value="Sr">Sr</option>
+                                    <option value="III">III</option>
+                                    <option value="IV">IV</option>
+                                    <option value="V">V</option>
+                                    <option value="VI">VI</option>
+                                    <option value="VII">VII</option>
+                                    <option value="VIII">VIII</option>
+                                    <option value="VIIII">VIIII</option>
+                                    <option value="X">X</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="Address" class="form-label me-2" style="width: 100px;">Address</label>
+                                <textarea id="address" class="form-control" rows="3" style="resize: none;"></textarea>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="EmailAddress" class="form-label me-2" style="width: 100px;">Email Address</label>
+                                <input id="emailAddress" class="form-control" type="email" />
+                            </div>
+
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="MobileNumber" class="form-label me-2" style="width: 100px;">Mobile Number</label>
+                                <input id="mobileNumber" class="form-control" type="tel" />
+                            </div>
+
+                            <div class="d-flex align-items-center mb-2">
+                                <label for="Status" class="form-label me-2" style="width: 100px;">Status</label>
+                                <select id="status" class="form-select">
+                                    <option value=""></option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+    <hr />
+    <!-- Table Section -->
+    <div class="container bg-main fs-7 rounded">
+        <!-- Search Bar -->
+        <div class="mb-3 d-flex align-items-center fs-7 rounded">
+            <label for="searchBar" class="form-label me-2">Search:</label>
+            <input type="text" id="searchBar" class="form-control fs-7" style="width: 300px;" placeholder="Search users...">
+        </div>
+
+        <!-- User Table -->
+
+        <div class="table-responsive fs-7 rounded-3" style="max-height: 500px; overflow-y: auto;">
+            <table class="table table-hover table-bordered text-center align-middle " id="userTable" +>
+                <thead class="table-dark fs-7">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Member Type</th>
+                        <th>Firstname</th>
+                        <th>Middlename</th>
+                        <th>Lastname</th>
+                        <th>Suffix</th>
+                        <th>Address</th>
+                        <th>Email Address</th>
+                        <th>Mobile No.</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody class="fs-7">
+                   @*  @if (Model != null && Model.Any())
+                    {
+                        foreach (var user in Model)
+                        {
+                            <tr data-userid="@user.UserID"
+                                data-membertype="@user.MemberType"
+                                data-firstname="@user.FirstName"
+                                data-middlename="@user.MiddleName"
+                                data-lastname="@user.LastName"
+                                data-suffix="@user.Suffix"
+                                data-address="@user.Address"
+                                data-email="@user.Email"
+                                data-mobile="@user.MobileNo"
+                                data-status="@user.Status.ToString()"
+                                data-profilepicture="@(user.ProfilePicture != null && user.ProfilePicture.Length > 0 ? $"data:image/png;base64,{Convert.ToBase64String(user.ProfilePicture)}" : "/images/default-user.png")">
+
+                                <td>@user.UserID</td>
+                                <td>@user.MemberType</td>
+                                <td>
+                                    @if (user.ProfilePicture != null && user.ProfilePicture.Length > 0)
+                                    {
+                                        <!-- Convert byte array to Base64 string -->
+                                        <img src="data:image/png;base64,@Convert.ToBase64String(user.ProfilePicture)"
+                                             alt="user"
+                                             class="rounded-circle me-1"
+                                             width="25"
+                                             height="25">
+                                    }
+                                    else
+                                    {
+                                        <!-- Fallback if no picture -->
+                                        <img src="/images/default-user.png"
+                                             alt="user"
+                                             class="rounded-circle me-1"
+                                             width="25"
+                                             height="25">
+                                    }
+                                    @user.FirstName
+                                </td>
+                                <td>@user.MiddleName</td>
+                                <td>@user.LastName</td>
+                                <td>@user.Suffix</td>
+                                <td>@user.Address</td>
+                                <td>@user.Email</td>
+                                <td>@user.MobileNo</td>
+                                <td>
+                                    @if (user.Status)
+                                    {
+                                        <span class="badge bg-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Inactive</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="10" class="text-center">No records found.</td>
+                        </tr>
+                    } *@
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+<script src="~/js/UserAccount.js"></script>

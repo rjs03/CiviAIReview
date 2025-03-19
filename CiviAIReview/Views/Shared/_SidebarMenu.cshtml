@@ -1,0 +1,19 @@
+﻿@using CiviAIReview.Models
+@model List<MenuItem>
+
+<h4 class="mb-4 mt-2 fw-bold">CiviAI Review</h4>
+
+<span class="sidebar-header mb-1">MENU</span>
+
+@foreach (var item in Model)
+{
+    <a href="@Url.Action(item.Action, item.Controller)" class="menu-item">
+        <img src="@Url.Content(item.Icon)" class="menu-icon" alt="@item.Name icon" />
+        <span>@item.Name</span>
+    </a>
+}
+
+<hr class="w-100 my-3">
+
+<span class="sidebar-header mb-1">OTHER</span>
+<a href="@Url.Action("Index", "Settings")" class="menu-item"><span class="me-2">⚙️</span> Settings</a>
